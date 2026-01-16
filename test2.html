@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Royal Ranking - Royal Academy</title>
+  <link rel="stylesheet" href="CSS/test2.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <!-- === Styles Podium / Prestige / Badge === -->
+  <style>
+    /* Podium discret */
+    .podium-1 { border-left: 4px solid #ffd700; }
+    .podium-2 { border-left: 4px solid #bfc1c6; }
+    .podium-3 { border-left: 4px solid #cd7f32; }
+
+    /* Or du champion (sobre et noble) */
+    /*.gold-champion {
+      background: linear-gradient(90deg, #2a2208, #3b2f0a);
+    }/*
+
+    /* Prestige (doré plus profond et texturé) */
+    .prestige {
+      border: 1px solid #ffd700;
+      background: linear-gradient(135deg, #3a2f0a, #6e5a18);
+      box-shadow: 0 0 8px rgba(255,215,0,0.15);
+    }
+
+    /* Badge Champion AURA modernisé */
+    .badge-aura {
+      display: inline-block;
+      background: linear-gradient(135deg,#ffd700,#ffb700);
+      color:#1a1a1a;
+      font-size:0.65rem;
+      font-weight:700;
+      padding:3px 7px;
+      border-radius:6px;
+      margin-left:6px;
+      letter-spacing:0.5px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.4);
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1>Royal Ranking</h1>
+  <nav>
+    <a href="/classement-regional">Régional</a>
+    <a href="/classement-national">National</a>
+    <a href="/classement-international">International</a>
+  </nav>
+</header>
+
+<div class="wrapper">
+  <div id="cat-60" class="category"><h2>-60kg</h2><div class="list"></div></div>
+  <div id="cat-66" class="category"><h2>-66kg</h2><div class="list"></div></div>
+  <div id="cat-73" class="category"><h2>-73kg</h2><div class="list"></div></div>
+  <div id="cat-81" class="category"><h2>-81kg</h2><div class="list"></div></div>
+  <div id="cat-90" class="category"><h2>-90kg</h2><div class="list"></div></div>
+  <div id="cat-100" class="category"><h2>-100kg</h2><div class="list"></div></div>
+  <div id="cat-+100" class="category"><h2>+100kg</h2><div class="list"></div></div>
+</div>
+
+
+<!-- ===== Script Google Sheet ===== -->
+<script>
+const sheetURL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vROHl6LE5E96xQpP8IpwxzBjEj4FF0-QpFQpbziZV7xdOxXOjMglPL3umlRxiSaX5q2tckyKhdKYAhm/pub?output=csv";
+
+fetch(sheetURL)
+  .then(r => r.text())
+  .then(csv => {
+
+    const lines = csv.split("\n").slice(1);
+
+    lines.forEach(line => {
+      if(line.trim()==="") return;
+
+      // categorie,rang,nom,club,points,prestige,badge
+      const [categorie,rang,nom,club,points,prestige,badge] = line.split(",");
+
+      const catID = categorie.replace("-", "");
+      const container = document.querySelector(`#cat-${catID} .list`);
+      if(!container) return;
+
+      const athlete = document.createElement("div");
+
+      // --- Podium discret ---
+      let podiumClass = "";
+      if(rang == 1) podiumClass = " podium-1 gold-champion";
+      if(rang == 2) podiumClass = " podium-2";
+      if(rang == 3) podiumClass = " podium-3";
+
+      // --- Prestige override ---
+      const prestigeClass = (prestige && prestige.trim() !== "") ? " prestige" : "";
+
+      athlete.className = "athlete" + podiumClass + prestigeClass;
+
+      // --- Badge AURA ---
+      const badgeHTML = (badge && badge.trim().toUpperCase()=="AURA")
+        ? `<span class="badge-aura">CHAMPION AURA</span>`
+        : "";
+
+      athlete.innerHTML = `
+        <div class="left">
+          <div class="pos">${rang}</div>
+          <div class="info">
+            <strong>${nom} ${badgeHTML}</strong>
+            <small>${club}</small>
+          </div>
+        </div>
+        <div class="points">${points} pts</div>
+      `;
+
+      container.appendChild(athlete);
+    });
+  })
+  .catch(err => console.error("Erreur Google Sheet :", err));
+</script>
+
+</body>
+</html>

@@ -1,0 +1,257 @@
+/* Police moderne */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: #0f0f1a;
+  color: #e0e0e0;
+  display: flex;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+/* Header */
+header {
+  background: linear-gradient(90deg, #1e1e2f, #2d2d44);
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  position: fixed;
+  top: 0;
+  left: 0;
+  
+  width: 100%;
+  z-index: 100;
+}
+
+/* Titre */
+header h1 {
+  margin: 0;
+  font-size: 1.8rem;
+  letter-spacing: 1px;
+  color: #fff;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* Navigation */
+nav {
+  margin-right: 2%;
+  display: flex;
+  gap: 20px; /* Espacement entre les liens */
+}
+
+/* Liens de navigation */
+nav a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.9rem;
+  white-space: nowrap;
+  padding: 5px 10px;
+  transition: color 0.2s;
+}
+
+/* Effet au survol */
+nav a:hover {
+  color: #ffd700;
+}
+
+
+
+
+/* Conteneur principal */
+.wrapper {
+  width: 90%;
+  max-width: 1600px;
+  margin-top: 100px;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(250px, 1fr));
+  gap: 25px;
+  padding: 20px;
+}
+
+/* Catégories */
+.category {
+  background: #1a1a28;
+  padding: 15px;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  
+}
+
+.category h2 {
+  margin-top: 0;
+  text-align: center;
+  color: #fff;
+  font-size: 1.4rem;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #333;
+  position: sticky;
+  top: 0;
+  background: #1a1a28;
+  z-index: 10;
+}
+
+/* Athlètes */
+.athlete {
+  padding: 12px;
+  margin: 8px 0;
+  background: #262636;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.athlete:hover {
+  transform: translateY(-2px);
+  background: #3a3a5a;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* Champions */
+.champion {
+  border: 2px solid #ffd700;
+  background: linear-gradient(90deg, #4a3c0a, #7c6808);
+  position: relative;
+}
+
+.champion::before {
+  
+  font-size: 1.2rem;
+}
+
+/* Conteneur pour le numéro et le nom */
+.left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 70%; /* Assure que le nom ne dépasse pas */
+}
+
+/* Numéro de classement */
+.pos {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #fff;
+  width: 30px;
+  text-align: center;
+}
+
+/* Informations sur l'athlète */
+.info {
+  display: flex;
+  flex-direction: column;
+}
+
+.info strong {
+  font-size: 0.95rem;
+  color: #fff;
+  white-space: nowrap; /* Empêche le retour à la ligne */
+  overflow: hidden;
+  text-overflow: ellipsis; /* Ajoute "..." si le texte est trop long */
+}
+
+.info small {
+  color: #aaa;
+  font-size: 0.8rem;
+}
+
+/* Points */
+.points {
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: #ffd700;
+  width: 25%; /* Espace réservé pour les points */
+  text-align: right;
+}
+
+/* Responsive pour mobile */
+@media (max-width: 1024px) {
+  .wrapper {
+    grid-template-columns: repeat(2, minmax(250px, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+  .wrapper {
+    grid-template-columns: 1fr;
+  }
+
+  .left {
+    width: 60%; /* Ajuste la largeur sur mobile */
+  }
+}
+/* ======= MOBILE OPTIMISATION ======= */
+@media (max-width: 768px) {
+
+  /* Header plus compact */
+  header {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px 15px;
+  }
+
+  header h1 {
+    font-size: 1.4rem;
+    margin-bottom: 8px;
+  }
+
+  /* Navigation horizontale scrollable */
+  nav {
+    width: 100%;
+    overflow-x: auto;
+    gap: 10px;
+    padding-bottom: 5px;
+  }
+
+  nav a {
+    flex: 0 0 auto;
+    background: #2d2d44;
+    border-radius: 20px;
+    padding: 6px 12px;
+    font-size: 0.85rem;
+  }
+
+  /* Wrapper en une colonne */
+  .wrapper {
+    grid-template-columns: 1fr;
+    width: 95%;
+    margin-top: 120px;
+    padding: 10px;
+  }
+
+  /* Cartes catégories */
+  .category {
+    max-height: none;
+  }
+
+  /* Athlètes plus grands pour le tactile */
+  .athlete {
+    padding: 14px;
+  }
+
+  .pos {
+    font-size: 1.1rem;
+  }
+
+  .points {
+    font-size: 1rem;
+  }
+
+  /* Nom autorise 2 lignes au lieu d'une seule */
+  .info strong {
+    white-space: normal;
+  }
+}
+/* Mise en valeur podium + prestige */
+.highlight {
+  border: 2px solid #ffd700;
+  background: linear-gradient(90deg, #4a3c0a, #7c6808);
+}
